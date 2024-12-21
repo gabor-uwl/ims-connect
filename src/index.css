@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom CSS */
+
+nav.navbar{
+  background-color: rgb(60, 60, 60);
+}
+
+a.nav-item:hover{
+  background-color: rgb(100, 100, 100);
+}
+
+div.idea{
+  background-color: hsla(250, 70%, 70%, 0.5);
+}
+
+div.idea:hover{
+  background-color: hsla(250, 50%, 50%, 0.5);
+}
+
+div.project:hover{
+  background-color: hsla(200, 30%, 70%, 0.5);
+}
+
+div.task{
+  background-color: hsla(300, 70%, 70%, 0.5);
+}
+
+div.task:hover{
+  background-color: hsla(300, 50%, 50%, 0.5);
+}
+
+button.btn{
+  color: antiquewhite;
+  background-color: rgb(100, 100, 100);
+}
+
+button.btn:hover{
+  color: antiquewhite;
+  background-color: rgb(60, 60, 60);
+}
+
+button.btn.disabled{
+  color: antiquewhite;
+  background-color: hsla(200, 0%, 30%, 0.5);
+}
+
+button.btn.create{
+  background-color: rgb(120, 70, 200);
+}
+
+button.btn.create:hover{
+  background-color: rgb(80, 30, 160);
+}
