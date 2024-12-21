@@ -2,7 +2,13 @@
 
 
 
-export default function TextBox({labelText, textValue, onChangeAction, isRequired = true, isReadOnly = false, isDisabled = false}) {
+export default function TextBox({labelText, 
+                                 textValue, 
+                                 onChangeAction, 
+                                 isRequired = true, 
+                                 isReadOnly = false, 
+                                 isDisabled = false}) {
+
   return (
     <div className="text-start mt-3">
       <label>{labelText} {!isRequired && <i> (optional)</i>}</label>

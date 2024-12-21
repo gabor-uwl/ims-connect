@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import { EmployeeContext } from "./Employee"; 
 import { NavLink } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 import innoImg from "../assets/images/innovation.jpg";
+
+
+
 
 export default function  HeaderComponent() {
   const employeeLoggedIn = useContext(EmployeeContext).loggedIn;
+  const employeeName = useContext(EmployeeContext).employeeName;
   const isAdmin = useContext(EmployeeContext).isAdmin;
 
   return (
@@ -22,7 +27,8 @@ export default function  HeaderComponent() {
         </div>
         {employeeLoggedIn && <div className="col-3 navbar-nav justify-content-center">
           {isAdmin && <NavItem name="Employees" path="/employees" />}
-          <NavItem name="Profile" path="/profile" />
+          <Tooltip anchorSelect=".my_profile">My Profile</Tooltip>
+          <NavItem name={employeeName} path="/profile" tipAnchor="my_profile" />
           <span className="nav-link">|</span>
           <NavItem name="Log Out" path="/logout" />
         </div>}
@@ -31,14 +37,15 @@ export default function  HeaderComponent() {
   );
 };
   
-function NavItem({name, path="/", disabled=false}) {
+function NavItem({name, path="/", disabled=false, tipAnchor=""}) {
   return (
     <NavLink
       to={path} 
       className={({isActive}) => [
         "nav-item nav-link rounded text-center m-1", 
         ((isActive && !disabled) ? "active" : ""), 
-        (disabled ? "disabled text-white-50" : "link-light")].join(" ")}
+        (disabled ? "disabled text-white-50" : "link-light"), 
+        tipAnchor].join(" ")}
       style={{width:"120px"}}>
       {name}
     </NavLink>

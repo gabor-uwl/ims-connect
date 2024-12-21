@@ -60,11 +60,24 @@ app.post("/api/employee", async (req, res) => {
   });
 });
 
+app.post("/api/employee/update", async (req, res) => {
+  const {title, firstName, lastName, qualification, employeeId} = req.body;
+  const sql = 'UPDATE employees \
+               SET title = ?, firstName = ?, lastName = ?, qualification = ? \
+               WHERE id = ?';
+
+  ims_db.run(sql, [title, firstName, lastName, qualification, employeeId], (err) => {
+    if (err) throw err;
+
+    res.status(200).send({state: "updated"});
+  });
+});
+
 app.get("/api/employees", async (req, res) => {
   const sql = 'SELECT id AS value, \
                firstName || " " || lastName AS label \
                FROM employees \
-               WHERE qualification = "Environmental Engineer"';
+               WHERE jobTitle = "Innovation Specialist"';
 
   ims_db.all(sql, (err, rows) => {
     if (err) throw err;
@@ -239,20 +252,29 @@ app.post("/api/project", async (req, res) => {
 });
 
 app.post("/api/task", async (req, res) => {
-  const sql = 'SELECT tasks.title, description, state, assigneeId, \
-               firstName || " " || lastName AS assignee \
-               FROM tasks \
-               INNER JOIN employees ON tasks.assigneeId = employees.id \
-               WHERE tasks.taskId = ?';
+  const {taskId, projectId} = req.body;
+  const sql = 'SELECT id \
+               FROM projects \
+               WHERE projectId = ?';
 
-  ims_db.all(sql, req.body.taskId, (err, rows) => {
+  ims_db.all(sql, projectId, (err, row) => {
     if (err) throw err;
+    
+    const sql = 'SELECT tasks.title, description, state, assigneeId, \
+                 firstName || " " || lastName AS assignee \
+                 FROM tasks \
+                 INNER JOIN employees ON tasks.assigneeId = employees.id \
+                 WHERE tasks.taskId = ? AND projectId = ?';
 
-    res.status(200).send({task: rows[0]});
+    ims_db.all(sql, [taskId, row[0].id], (err, rows) => {
+      if (err) throw err;
+
+      res.status(200).send({task: rows[0]});
+    });
   });
 });
 
-app.post("/api/createtask", async (req, res) => {
+app.post("/api/task/create", async (req, res) => {
   const {title, description, assigneeId, projectId} = req.body;
   const sql = 'SELECT projects.id AS projId, COUNT(tasks.id) AS number \
                FROM tasks \
@@ -279,7 +301,7 @@ app.post("/api/createtask", async (req, res) => {
   });
 });
 
-app.post("/api/savetask", async (req, res) => {
+app.post("/api/task/update", async (req, res) => {
   const {taskId, projectId, state} = req.body;
   const sql = 'SELECT id \
                FROM projects \
@@ -294,7 +316,7 @@ app.post("/api/savetask", async (req, res) => {
     ims_db.run(sql, [state, taskId, row[0].id], (err) => {
       if (err) throw err;
   
-      res.status(200).send({state: "saved"});
+      res.status(200).send({state: "updated"});
     });
   });
 });

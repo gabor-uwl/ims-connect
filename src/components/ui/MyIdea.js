@@ -40,7 +40,7 @@ export default function MyIdeaComponent({idea}) {
     <li>
       <div className="row">
         <div 
-          className="col rounded border m-3 idea" 
+          className="col rounded border border-dark m-3 idea" 
           style={{cursor:"pointer"}} 
           onClick={viewIdea}>
           <div className="text-start m-3">

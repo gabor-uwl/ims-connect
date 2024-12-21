@@ -2,7 +2,14 @@
 
 
 
-export default function InputBox({labelText, inputType, inputValue, onChangeAction, isRequired = true, isReadOnly = false, isDisabled = false}) {
+export default function InputBox({labelText, 
+                                  inputType, 
+                                  inputValue, 
+                                  onChangeAction, 
+                                  isRequired = true, 
+                                  isReadOnly = false, 
+                                  isDisabled = false}) {
+
   return (
     <div className="text-start mt-3">
       <label>{labelText} {!isRequired && <i> (optional)</i>}</label>

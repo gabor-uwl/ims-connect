@@ -31,7 +31,7 @@ export default function TaskPage() {
   useEffect( () => {
     const fetchTask = async () => {
       try {
-        const res = await axios.post("http://localhost:3100/api/task", {taskId});
+        const res = await axios.post("http://localhost:3100/api/task", {taskId, projectId});
 
         setTitle(res.data.task.title);
         setDescription(res.data.task.description);
@@ -82,16 +82,16 @@ export default function TaskPage() {
 
     try {
       if (taskId === "newtask") {
-        const res = await axios.post("http://localhost:3100/api/createtask", {title, description, assigneeId, projectId});
+        const res = await axios.post("http://localhost:3100/api/task/create", {title, description, assigneeId, projectId});
 
         if (res.data.state === undefined)
           alert("Unexpected error to create task. Please try to create it again.")
       }
       else {
-        const res = await axios.post("http://localhost:3100/api/savetask", {taskId, projectId, state: state.value});
+        const res = await axios.post("http://localhost:3100/api/task/update", {taskId, projectId, state: state.value});
 
         if (res.data.state === undefined)
-          alert("Unexpected error to save task. Please try to save it again.")
+          alert("Unexpected error to update task. Please try to update it again.")
       }
     }
     catch(err) {

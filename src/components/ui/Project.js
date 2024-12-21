@@ -12,7 +12,8 @@ export default function ProjectComponent({project}) {
   return (
     <li>
       <div className="row text-start w-100 m-3">
-        <div className="col-2 rounded border border-3 border-secondary text-center project pt-2" style={{cursor:"pointer"}} onClick={viewProject}>
+        <div className="col-2 rounded border border-3 border-secondary text-center project pt-2" 
+             style={{cursor:"pointer"}} onClick={viewProject}>
           <h3>{project.projectId}</h3>
         </div>
         <div className="col-6 pt-2">

@@ -33,8 +33,6 @@ export default function IdeaFormComponent({idea, disabled = false}) {
       }
     }
 
-    console.log("IdeaFormComponent -> idea:", title, description);
-
     try {
       const res = await axios.post("http://localhost:3100/api/saveidea", {idea, title, description, employeeId});
 

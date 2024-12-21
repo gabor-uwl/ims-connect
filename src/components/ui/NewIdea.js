@@ -17,7 +17,7 @@ export default function NewIdeaComponent({idea}) {
   return (
     <li>
     <div
-      className="col rounded border m-3 idea"
+      className="col rounded border border-dark m-3 idea"
       style={{cursor:"pointer"}}
       onClick={viewIdea}>
       <div className="text-start m-3">

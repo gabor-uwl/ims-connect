@@ -46,6 +46,22 @@ export default function ProfilePage() {
   const handleSave = async (e) => {
     e.preventDefault();
 
+    try {
+      const res = await axios.post("http://localhost:3100/api/employee/update", {title, firstName, lastName, qualification, employeeId});
+
+      if (res.data.state === undefined)
+        alert("Unexpected error to save your idea. Please try to create it again.")
+    }
+    catch(err) {
+      console.error(err);
+
+      if(err.response === undefined)
+        alert(err.message);
+      else
+        alert(err.response.data.message);
+    }
+
+    setIsReadOnly(!isReadOnly);
   };
 
 
@@ -77,12 +93,12 @@ export default function ProfilePage() {
                       onChangeAction={setQualification} 
                       isReadOnly={isReadOnly} />
             <div className="d-flex justify-content-center pt-5">
-              <button className="btn w-100 mx-3" 
+              <button className="btn w-100 mx-4" 
                       type="button" 
                       onClick={() => setIsReadOnly(!isReadOnly)}>
                 {isReadOnly ? "Edit": "Cancel"}
               </button>
-              <button className={"btn w-100 mx-5" + (isReadOnly ? " disabled" : "")} 
+              <button className={"btn w-100 mx-4" + (isReadOnly ? " disabled" : "")} 
                       type="submit">Save</button>
             </div>
           </form>
@@ -94,17 +110,17 @@ export default function ProfilePage() {
                       inputType="email" 
                       inputValue={email} 
                       onChangeAction={setEmail} 
-                      isReadOnly={true} />
+                      isDisabled={true} />
             <InputBox labelText="Job Title:" 
                       inputType="text" 
                       inputValue={jobTitle} 
                       onChangeAction={setJobTitle} 
-                      isReadOnly={true} />
+                      isDisabled={true} />
             <InputBox labelText="Department:" 
                       inputType="text" 
                       inputValue={department} 
                       onChangeAction={setDepartment} 
-                      isReadOnly={true} />
+                      isDisabled={true} />
           </form>
         </div>
         <div className="col-2">

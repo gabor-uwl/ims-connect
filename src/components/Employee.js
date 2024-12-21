@@ -12,8 +12,6 @@ export default function EmployeeProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(employee ? (employee.jobTitle === "Admin" ? true : false) : false);
   const navigate = useNavigate();
 
-//  console.log("EmployeeProvider -> name, status:", employeeName, loggedIn, isAdmin);
-
   const logIn = (user) => {
     sessionStorage.setItem("employee", JSON.stringify(user));
     setEmployeeId(user.id);
