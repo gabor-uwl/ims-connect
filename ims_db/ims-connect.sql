@@ -63,6 +63,14 @@ CREATE TABLE teams (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     projectId TEXT UNIQUE NOT NULL,
     teamLeaderId INTEGER NOT NULL,
-    teamMembers TEXT,
     FOREIGN KEY (teamLeaderId) REFERENCES employees(id)
+);
+
+DROP TABLE teammembers;
+
+CREATE TABLE teammembers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    projectId TEXT NOT NULL,
+    teamMemberId INTEGER NOT NULL,
+    FOREIGN KEY (teamMemberId) REFERENCES employees(id)
 );

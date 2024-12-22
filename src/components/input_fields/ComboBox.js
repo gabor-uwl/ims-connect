@@ -5,7 +5,7 @@ import Select from "react-select";
 export default function ComboBox({labelText, 
                                   defaultOption, 
                                   onChangeAction, 
-                                  stateOptions, 
+                                  valueOptions, 
                                   isRequired = true, 
                                   isDisabled = false}) {
 
@@ -14,7 +14,7 @@ export default function ComboBox({labelText,
       <label>{labelText} {!isRequired && <i> (optional)</i>}</label>
       <Select defaultValue={defaultOption}
               onChange={onChangeAction}
-              options={stateOptions}
+              options={valueOptions}
               required={isRequired}
               isDisabled={isDisabled} />
     </div>

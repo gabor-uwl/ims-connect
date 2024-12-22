@@ -73,19 +73,6 @@ app.post("/api/employee/update", async (req, res) => {
   });
 });
 
-app.get("/api/employees", async (req, res) => {
-  const sql = 'SELECT id AS value, \
-               firstName || " " || lastName AS label \
-               FROM employees \
-               WHERE jobTitle = "Innovation Specialist"';
-
-  ims_db.all(sql, (err, rows) => {
-    if (err) throw err;
-
-    res.status(200).send({employees: rows});
-  });
-});
-
 app.get("/api/ideaboard", async (req, res) => {
   const sql = 'SELECT newideas.id, newideas.ideaId, title, state, \
                COUNT(votedBy) AS voteCount \
@@ -318,6 +305,20 @@ app.post("/api/task/update", async (req, res) => {
   
       res.status(200).send({state: "updated"});
     });
+  });
+});
+
+app.post("/api/teammembers", async (req, res) => {
+  const sql = 'SELECT employees.id AS value, \
+               firstName || " " || lastName AS label \
+               FROM employees \
+               INNER JOIN teammembers ON employees.id = teammembers.teamMemberId \
+               WHERE projectId = ?';
+
+  ims_db.all(sql, req.body.projectId, (err, rows) => {
+    if (err) throw err;
+
+    res.status(200).send({teamMembers: rows});
   });
 });
 

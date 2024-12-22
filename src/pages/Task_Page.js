@@ -17,7 +17,7 @@ export default function TaskPage() {
   const [assignee, setAssignee] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
   const [comment, setComment] = useState("");
-  const [employeeOptions, setEmployeeOptions] =useState();
+  const [teamMemberOptions, setTeamMemberOptions] =useState();
   const navigate = useNavigate();
 
   const stateOptions = [{value: "todo", label: "To Do"},
@@ -55,11 +55,11 @@ export default function TaskPage() {
       }
     };
 
-    const fetchEmployees = async () => {
+    const fetchTeamMembers = async () => {
       try {
-        const res = await axios.get("http://localhost:3100/api/employees");
+        const res = await axios.post("http://localhost:3100/api/teammembers", {projectId});
 
-        setEmployeeOptions(res.data.employees);
+        setTeamMemberOptions(res.data.teamMembers);
       }
       catch(err) {
         console.error(err);
@@ -72,7 +72,7 @@ export default function TaskPage() {
     };
 
     if (taskId === "newtask")
-      fetchEmployees();
+      fetchTeamMembers();
     else
       fetchTask();
   }, [employeeId, taskId]);
@@ -148,12 +148,12 @@ export default function TaskPage() {
             <ComboBox labelText="Assignee:" 
                       defaultOption={assignee}
                       onChangeAction={handleAssigneeChange}
-                      stateOptions={employeeOptions}
+                      valueOptions={teamMemberOptions}
                       isDisabled={taskId !== "newtask"} />
             <ComboBox labelText="State:" 
                       defaultOption={state}
                       onChangeAction={handleStateChange}
-                      stateOptions={stateOptions}
+                      valueOptions={stateOptions}
                       isDisabled={isDisabled} />
             <div className="d-flex justify-content-center pt-5">
               <button className="btn w-100 mx-3" 
