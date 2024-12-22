@@ -18,7 +18,7 @@ export default function TextBox({labelText,
                 required={isRequired}
                 disabled={isDisabled}
                 style={{height:"200px"}}
-                onChange={onChangeAction} />
+                onChange={(e) => onChangeAction(e.target.value)} />
     </div>
   );
 };

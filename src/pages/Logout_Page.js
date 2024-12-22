@@ -16,8 +16,11 @@ export default function LogoutPage() {
 
   return (
     <div>
-      <h1 style={{fontFamily: "cursive", marginTop: "50px"}}>We are logging you out. Please wait.</h1>
-      <div className="spinner-border text-dark" style={{width: "50px",height: "50px", marginTop: "50px"}}></div>
+      <h1 style={{fontFamily: "cursive", marginTop: "50px"}}>
+        We are logging you out. Please wait.
+      </h1>
+      <div className="spinner-border text-dark" 
+           style={{width: "50px",height: "50px", marginTop: "50px"}}></div>
    </div>
   );
 };

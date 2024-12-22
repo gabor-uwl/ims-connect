@@ -322,6 +322,22 @@ app.post("/api/teammembers", async (req, res) => {
   });
 });
 
+app.post("/api/newteammembers", async (req, res) => {
+  const sql = 'SELECT employees.id AS value, \
+               firstName || " " || lastName AS label \
+               FROM employees \
+               LEFT JOIN teammembers ON employees.id = teammembers.teamMemberId \
+               WHERE employees.id NOT IN (SELECT teamMemberId FROM teammembers \
+               INNER JOIN employees ON employees.id = teammembers.teamMemberId \
+               WHERE projectId = ?) AND employees.id <> 1 AND employees.id <> 2';
+
+  ims_db.all(sql, req.body.projectId, (err, rows) => {
+    if (err) throw err;
+
+    res.status(200).send({newTeamMembers: rows});
+  });
+});
+
 app.listen(3100, () => {
   console.log("Server listening on http://localhost:3100");
 });

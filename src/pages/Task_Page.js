@@ -3,9 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { EmployeeContext } from "../components/Employee";
 import InputBox from "../components/input_fields/InputBox";
 import TextBox from "../components/input_fields/TextBox";
-import axios from "axios";
 import ComboBox from "../components/input_fields/ComboBox";
-
+import axios from "axios";
 
 
 export default function TaskPage() {
@@ -13,7 +12,7 @@ export default function TaskPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [state, setState] = useState({value: "todo", label: "To Do"});
-  const [assigneeId, setAssigneeId] = useState("");
+  const [assigneeId, setAssigneeId] = useState();
   const [assignee, setAssignee] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
   const [comment, setComment] = useState("");
@@ -75,20 +74,22 @@ export default function TaskPage() {
       fetchTeamMembers();
     else
       fetchTask();
-  }, [employeeId, taskId]);
+  }, [employeeId, projectId, taskId]);
 
   const handleSave = async (e) => {
     e.preventDefault();
 
     try {
       if (taskId === "newtask") {
-        const res = await axios.post("http://localhost:3100/api/task/create", {title, description, assigneeId, projectId});
+        const res = await axios.post(
+          "http://localhost:3100/api/task/create", {title, description, assigneeId, projectId});
 
         if (res.data.state === undefined)
           alert("Unexpected error to create task. Please try to create it again.")
       }
       else {
-        const res = await axios.post("http://localhost:3100/api/task/update", {taskId, projectId, state: state.value});
+        const res = await axios.post(
+          "http://localhost:3100/api/task/update", {taskId, projectId, state: state.value});
 
         if (res.data.state === undefined)
           alert("Unexpected error to update task. Please try to update it again.")
@@ -135,13 +136,13 @@ export default function TaskPage() {
             <TextBox labelText="Description:"
                      textValue={description}
                      isDisabled={taskId !== "newtask"}
-                     onChangeAction={(e) => setDescription(e.target.value)} />
+                     onChangeAction={setDescription} />
             { (taskId !== "newtask") &&
             <TextBox labelText="Comment:"
                      inputValue={comment}
                      isRequired={false}
                      isDisabled={isDisabled}
-                     onChangeAction={(e) => setComment(e.target.value)} />}
+                     onChangeAction={setComment} />}
           </div>
           <div className="col-2"></div>
           <div className="col-3">

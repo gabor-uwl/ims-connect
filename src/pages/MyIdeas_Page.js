@@ -2,14 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { EmployeeContext } from "../components/Employee";
 import { useNavigate } from "react-router-dom";
 import MyIdeaComponent from "../components/ui/MyIdea";
+import LoadingComponent from "../components/ui/Loading";
 import axios from "axios";
-
 
 
 
 export default function MyIdeasPage() {
   const employeeId = useContext(EmployeeContext).employeeId;
   const [data, setData] = useState();
+  const [timeOut, setTimeOut] = useState(true);
   const navigate = useNavigate();
 
   useEffect( () => {
@@ -17,7 +18,6 @@ export default function MyIdeasPage() {
       try {
         const res = await axios.post("http://localhost:3100/api/myideas", {employeeId});
 
-        console.log("MyIdeasPage -> response:", res.data);
         setData(res.data);
       }
       catch(err) {
@@ -37,8 +37,11 @@ export default function MyIdeasPage() {
     navigate("/myideas/new-idea");
   };
 
-  if (data === undefined)
-    return null;
+  if ((data === undefined) || timeOut)
+    return (
+      <LoadingComponent timeOutHandler={setTimeOut} 
+                        message="Loading your Ideas page. Please wait."/>
+    );
 
   return (
     <div className="flex: 1 container align-items-center justify-content-center">

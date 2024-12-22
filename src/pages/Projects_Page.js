@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProjectComponent from "../components/ui/Project";
+import LoadingComponent from "../components/ui/Loading";
 import axios from "axios";
-
 
 
 
@@ -9,6 +9,7 @@ import axios from "axios";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState();
+  const [timeOut, setTimeOut] = useState(true);
 
   useEffect( () => {
     const fetchProjects = async () => {
@@ -29,6 +30,12 @@ export default function ProjectsPage() {
 
     fetchProjects();
   }, []);
+
+  if ((projects === undefined) || timeOut)
+    return (
+      <LoadingComponent timeOutHandler={setTimeOut} 
+                        message="Loading Projects page. Please wait."/>
+    );
 
   if (projects === undefined)
     return null;

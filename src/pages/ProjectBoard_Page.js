@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { EmployeeContext } from "../components/Employee";
 import ColumnComponent from "../components/ui/Column";
+import LoadingComponent from "../components/ui/Loading";
 import axios from "axios";
-
 
 
 
@@ -11,6 +11,7 @@ export default function ProjectBoardPage() {
   const employeeId = useContext(EmployeeContext).employeeId;
   const [tasks, setTasks] = useState();
   const [isTeamLeader, setIsTeamLeader] = useState(false);
+  const [timeOut, setTimeOut] = useState(true);
   const navigate = useNavigate();
 
   let params = useParams();
@@ -37,8 +38,11 @@ export default function ProjectBoardPage() {
     fetchTasks();
   }, [projectId, employeeId]);
 
-  if (tasks === undefined)
-    return null;
+  if ((tasks === undefined) || timeOut)
+    return (
+      <LoadingComponent timeOutHandler={setTimeOut} 
+                        message="Loading Project Board page. Please wait."/>
+    );
 
   return (
     <div className="flex: 1 container align-items-center justify-content-center">
@@ -47,10 +51,18 @@ export default function ProjectBoardPage() {
           <h3 style={{fontFamily: "cursive"}}>{projectId}</h3>
         </div>
         <div className="col-2 mt-4">
-          {isTeamLeader && <button className="btn w-100 mx-3" 
-                                   type="button" 
-                                   onClick={() => navigate("/projects/" + projectId + "/newtask")}
-                           >Create Task</button>}
+          {isTeamLeader && 
+            <button className="btn w-100 mx-3" 
+                    type="button" 
+                    onClick={() => navigate("/projects/" + projectId + "/teammember")}
+            >Add Team Member</button>}
+        </div>
+        <div className="col-2 mt-4">
+          {isTeamLeader && 
+            <button className="btn w-100 mx-3" 
+                    type="button" 
+                    onClick={() => navigate("/projects/" + projectId + "/newtask")}
+            >Create Task</button>}
         </div>
       </div>
       <div className="row">

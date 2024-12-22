@@ -61,7 +61,7 @@ export default function IdeaFormComponent({idea, disabled = false}) {
       <TextBox  labelText="Description:" 
                 textValue={description} 
                 isDisabled={isDisabled} 
-                onChangeAction={(e) => setDescription(e.target.value)} />
+                onChangeAction={setDescription} />
       {!disabled && <div className="d-flex justify-content-center pt-3">
         <button className={"btn w-100 mx-5" + (isDisabled ? " disabled" : "")} type="submit">Save</button>
         <button className="btn w-100 mx-5" type="button" onClick={() => navigate("/myideas")}>

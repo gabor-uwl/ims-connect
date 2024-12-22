@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { EmployeeContext } from "../components/Employee";
 import InputBox from "../components/input_fields/InputBox";
+import LoadingComponent from "../components/ui/Loading";
 import axios from "axios";
 
 
@@ -16,6 +17,7 @@ export default function ProfilePage() {
   const [qualification, setQualification] = useState("");
   const [department, setDepartment] = useState("");
   const [isReadOnly, setIsReadOnly] = useState(true);
+  const [timeOut, setTimeOut] = useState(true);
 
   useEffect( () => {
     const fetchIdeas = async () => {
@@ -47,7 +49,8 @@ export default function ProfilePage() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3100/api/employee/update", {title, firstName, lastName, qualification, employeeId});
+      const res = await axios.post("http://localhost:3100/api/employee/update",
+                                   {title, firstName, lastName, qualification, employeeId});
 
       if (res.data.state === undefined)
         alert("Unexpected error to save your idea. Please try to create it again.")
@@ -64,6 +67,11 @@ export default function ProfilePage() {
     setIsReadOnly(!isReadOnly);
   };
 
+  if (timeOut)
+    return (
+      <LoadingComponent timeOutHandler={setTimeOut} 
+                        message="Loading your Profile page. Please wait."/>
+    );
 
   return (
     <div className="flex: 1 container d-flex align-items-center justify-content-center">
@@ -123,8 +131,7 @@ export default function ProfilePage() {
                       isDisabled={true} />
           </form>
         </div>
-        <div className="col-2">
-        </div>
+        <div className="col-2"></div>
       </div>
     </div>
   );

@@ -12,8 +12,8 @@ import VoteIdeaPage from '../pages/VoteIdea_Page';
 import EditIdeaPage from '../pages/EditIdea_Page';
 import ProjectBoardPage from '../pages/ProjectBoard_Page';
 import TaskPage from '../pages/Task_Page';
+import TeamMemberPage from '../pages/TeamMember_Page';
 import backgroungImage from '../assets/images/airplane.jpg';
-
 
 
 
@@ -31,6 +31,7 @@ export default function MainComponent() {
         <Route path='/projects' element={<ProjectsPage/>}/>
         <Route path='/projects/:projectId' element={<ProjectBoardPage/>}/>
         <Route path='/projects/:projectId/:taskId' element={<TaskPage/>}/>
+        <Route path='/projects/:projectId/teammember' element={<TeamMemberPage/>}/>
         <Route path='/myideas' element={<MyIdeasPage/>}/>
         <Route path='/myideas/:ideaId' element={<EditIdeaPage/>}/>
         <Route path='/myrewards' element={<MyRewardsPage/>}/>
