@@ -9,9 +9,6 @@ import unlikedImg from "../assets/images/unliked.png";
 import axios from "axios";
 
 
-
-
-
 export default function VoteIdeaPage() {
   const employeeId = useContext(EmployeeContext).employeeId;
   const [idea, setIdea] = useState();
@@ -81,16 +78,14 @@ export default function VoteIdeaPage() {
         <div className="col-2"></div>
         <div className="col-3">
           <IdeaFormComponent idea={idea} disabled={true} />
-          <InputBox
-            labelText="Submitted by:"
-            inputType="text"
-            inputValue={ideaOwner.firstName + " " + ideaOwner.lastName}
-            isDisabled={true} />
-          <InputBox
-            labelText="Submition date:"
-            inputType="text"
-            inputValue={idea.submissionDate}
-            isDisabled={true} />
+          <InputBox labelText="Submitted by:"
+                    inputType="text"
+                    inputValue={ideaOwner.firstName + " " + ideaOwner.lastName}
+                    isDisabled={true} />
+          <InputBox labelText="Submition date:"
+                    inputType="text"
+                    inputValue={idea.submissionDate}
+                    isDisabled={true} />
         </div>
         <div className="col-2"></div>
         <div className="col-3 mt-4">

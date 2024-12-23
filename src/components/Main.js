@@ -13,7 +13,7 @@ import EditIdeaPage from '../pages/EditIdea_Page';
 import ProjectBoardPage from '../pages/ProjectBoard_Page';
 import TaskPage from '../pages/Task_Page';
 import TeamMemberPage from '../pages/TeamMember_Page';
-import backgroungImage from '../assets/images/airplane.jpg';
+
 
 
 
@@ -22,8 +22,7 @@ export default function MainComponent() {
 
   return (
     <main className="vh-100 text-center" 
-      style={{paddingTop: "60px", paddingBottom: "25px", 
-      backgroundImage: `url(${backgroungImage})`, backgroundSize: "cover"}}>
+      style={{paddingTop: "60px", paddingBottom: "25px"}}>
     {employeeLoggedIn ? (
       <Routes>
         <Route path='/' element={<IdeaBoardPage/>}/>
