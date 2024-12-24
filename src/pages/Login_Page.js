@@ -8,8 +8,8 @@ import axios from "axios";
 
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("jenny@innoman.com");
-  const [password, setPassword] = useState("12345");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const employeeContext = useContext(EmployeeContext);
 
   const handleLogin = async (e) => {
